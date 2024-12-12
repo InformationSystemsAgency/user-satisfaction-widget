@@ -21,7 +21,8 @@ export type HenaketButtonVariants =
   | 'floating'
   | 'toTop'
   | 'yesem'
-  | 'start';
+  | 'start'
+  | 'rating';
 
 type Props = {
   disabled?: boolean;
@@ -60,7 +61,7 @@ const removeButtonFocus = () => {
 <style>
 .app-button {
   @apply rounded border-2
-    w-full md:w-auto no-underline flex items-center justify-center transition-[background-color,border-color,box-shadow];
+    w-full no-underline flex items-center justify-center transition-[background-color,border-color,box-shadow];
 }
 
 .app-button > span {
@@ -113,6 +114,12 @@ const removeButtonFocus = () => {
     active:bg-blue-1000 active:border-blue-1100;
 }
 
+.app-button.rating {
+  @apply rounded-full border-text-200 bg-text-100 text-text-800
+    hover:border-text-500 hover:bg-blue-100
+    active:border-text-600 active:bg-blue-300;
+}
+
 .app-button.regular {
   @apply text-sm px-3 md:px-4 py-2;
 }
@@ -120,6 +127,10 @@ const removeButtonFocus = () => {
 .app-button.regular.icon,
 .app-button.regular.floating {
   @apply text-sm p-1 md:p-2;
+}
+
+.app-button.regular.rating {
+  @apply text-sm p-1 md:p-[5px];
 }
 
 .app-button.large {
