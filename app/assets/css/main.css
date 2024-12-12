@@ -1,0 +1,61 @@
+html {
+  @apply scroll-auto;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+.fade-slide-up-enter-active,
+.fade-slide-up-leave-active {
+  @apply transition-[opacity,transform] duration-300;
+}
+
+.fade-slide-up-enter-from,
+.fade-slide-up-leave-to {
+  @apply opacity-0 scale-95;
+}
+
+/* Slide right <- left */
+.slide-right-to-left-move,
+.slide-right-to-left-enter-active,
+.slide-right-to-left-leave-active {
+  @apply transition-transform duration-500;
+}
+
+.slide-right-to-left-enter-from {
+  @apply translate-x-full;
+}
+
+.slide-right-to-left-leave-to {
+  @apply -translate-x-full;
+}
+
+.slide-right-to-left-leave-active {
+  @apply absolute;
+}
+
+/* Slide left -> right */
+.slide-left-to-right-move,
+.slide-left-to-right-enter-active,
+.slide-left-to-right-leave-active {
+  @apply transition-transform duration-500;
+}
+
+.slide-left-to-right-enter-from {
+  @apply -translate-x-full;
+}
+
+.slide-left-to-right-leave-to {
+  @apply translate-x-full;
+}
+
+.slide-left-to-right-leave-active {
+  @apply absolute;
+}

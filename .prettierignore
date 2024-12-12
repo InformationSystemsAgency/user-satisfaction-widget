@@ -1,0 +1,11 @@
+.nuxt
+.nx
+.amplify-hosting
+.unlighthouse
+.output
+*.json
+dist
+pnpm-lock.yaml
+coverage
+node_modules
+package-lock.json

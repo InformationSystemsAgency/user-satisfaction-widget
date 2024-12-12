@@ -1,0 +1,37 @@
+# dotenv environment variables file
+.env
+.env.*
+!.env.example
+
+# Dependency directories
+node_modules/
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+
+# IDEs and editors
+/.idea
+.project
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.amplify-hosting
+.cache
+dist
+
+# Unlighthouse
+.unlighthouse
