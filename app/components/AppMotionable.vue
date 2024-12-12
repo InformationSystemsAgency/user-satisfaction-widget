@@ -17,6 +17,7 @@ interface MotionableProps {
   show?: boolean;
 }
 
+
 const props = withDefaults(defineProps<MotionableProps>(), {
   as: 'div',
   show: true,
