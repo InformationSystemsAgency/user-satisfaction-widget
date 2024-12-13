@@ -177,8 +177,8 @@ const ratingOptions = [
 ];
 
 useHead({
+  title: 'ծառայությունների մասին կարիծիք',
   htmlAttrs: { lang: 'en' },
-  title: 'Henaket',
 })
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
