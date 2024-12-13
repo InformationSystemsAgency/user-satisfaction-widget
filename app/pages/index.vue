@@ -60,7 +60,10 @@
             :active="item.value === feedbackForm.rating"
             @click="handleFeedbackSubmission(item.value)"
           >
-            <span class="text-2xl">{{ item.label }}</span>
+            <img
+              class="w-7 h-7"
+              :src="icons[item.icon]"
+            />
           </HenaketButton>
         </template>
       </div>
@@ -102,9 +105,9 @@
           class="bg-primary text-text-100 p-2 rounded-e-lg border border-black border-l-0"
           @click="submitFeedbackComment"
         >
-          <HenaketIcon
-            icon="send"
-            size="24px"
+          <img
+            src="~/assets/icons/send.svg"
+            class="w-6 h-6"
           />
         </button>
       </div>
@@ -134,19 +137,15 @@
 </template>
 
 <script setup lang="ts">
-// import VeryBad from '~/assets/svg/veryBad.svg';
-// import Bad from '~/assets/svg/bad.svg';
-// import Neutral from '~/assets/svg/neutral.svg';
-// import Good from '~/assets/svg/good.svg';
-// import VeryGood from '~/assets/svg/veryGood.svg';
-
 const ratingOptions = [
-  { label: '😡', value: 1 },
-  { label: '😐', value: 2 },
-  { label: '😊', value: 3 },
-  { label: '😍', value: 4 },
-  { label: '🤩', value: 5 },
+  { label: '😡', value: 1, icon: 'angry.svg' },
+  { label: '😐', value: 2, icon: 'bad.svg' },
+  { label: '😊', value: 3, icon: 'neutral.svg' },
+  { label: '😍', value: 4, icon: 'good.svg' },
+  { label: '🤩', value: 5, icon: 'excellent.svg' },
 ];
+
+const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
 
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
