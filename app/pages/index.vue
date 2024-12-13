@@ -65,6 +65,8 @@
             <img
               class="w-7 h-7"
               :src="icons[item.icon]"
+              alt=""
+              role="presentation"
             />
           </HenaketButton>
         </template>
@@ -173,6 +175,11 @@ const ratingOptions = [
     icon: 'excellent.svg',
   },
 ];
+
+useHead({
+  htmlAttrs: { lang: 'en' },
+  title: 'Henaket',
+})
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
 
