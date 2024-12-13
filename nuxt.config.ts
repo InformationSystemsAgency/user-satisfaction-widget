@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   routeRules: {
-    '/**': { swr: true },
+    '/': { swr: true },
   },
 
   experimental: {
@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     families: [
       { name: 'Noto Sans Armenian', provider: 'google' },
       { name: 'Noto Sans', provider: 'google' },
-      { name: 'Material Symbols Outlined', provider: 'googleicons' },
     ],
   },
 
