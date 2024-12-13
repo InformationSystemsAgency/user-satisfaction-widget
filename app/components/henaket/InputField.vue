@@ -5,7 +5,7 @@
       :class="errorMessage ? 'w-1 mr-4' : 'w-0 mr-0'"
     ></div>
 
-    <label class="flex flex-col gap-1">
+    <label class="h-full flex flex-col gap-1">
       <div
         v-if="label"
         class="font-semibold"
@@ -35,6 +35,7 @@
         <input
           v-model="input"
           ref="inputFieldElement"
+          :placeholder="placeholder"
           :type="type"
           @input="onInput"
           @blur="onBlur"
@@ -64,6 +65,7 @@ type ValidationRule =
 type Props = {
   modelValue: string;
   rules?: ValidationRule[];
+  placeholder?: string;
   type?: string;
   label?: string;
   prefix?: string;

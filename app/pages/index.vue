@@ -2,7 +2,8 @@
   <div class="flex items-center w-full h-screen px-6 py-4 border border-text-500 rounded-3xl overflow-hidden">
     <div
       v-if="!showCommentSection"
-      class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center md:justify-between flex-col md:flex-row"
+      class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center flex-col md:flex-row"
+      :class="[feedbackForm.rating ? 'md:justify-end' : 'md:justify-between']"
     >
       <div
         v-if="!feedbackForm.rating"
@@ -36,7 +37,7 @@
         class="text-primary text-sm md:text-base font-semibold leading-normal shrink-0 underline hover:decoration-[3px] focus:!text-white focus:bg-accessibility focus:shadow-accessibilityOutline focus:animate-accessibility-outline-pulse"
         @click="openCommentSection"
       >
-        Ցանկանում եք թողնել մեկնաբանություն
+        Ցանկանու՞մ եք թողնել մեկնաբանություն
       </button>
 
       <div class="flex gap-3 w-full md:w-auto min-w-0">
@@ -81,13 +82,12 @@
       class="w-full"
     >
       <div class="w-full flex">
-        <HenaketTextarea
+        <HenaketInputField
           v-model="feedbackForm.comment"
           ref="feedbackTextareaSmallElement"
           class="w-full hidden md:block"
           placeholder="Մեկնաբանություն"
-          :rows="1"
-          :maxRows="1"
+          @keydown.enter="submitFeedbackComment"
         />
 
         <HenaketTextarea
@@ -135,7 +135,6 @@
 </template>
 
 <script setup lang="ts">
-
 // import VeryBad from '~/assets/svg/veryBad.svg';
 // import Bad from '~/assets/svg/bad.svg';
 // import Neutral from '~/assets/svg/neutral.svg';
@@ -198,5 +197,9 @@ const submitFeedbackComment = async () => {
 
 .app-textarea-content {
   @apply rounded-e-none;
+}
+
+.henaket-input-field-content {
+  @apply rounded-e-none h-full;
 }
 </style>
