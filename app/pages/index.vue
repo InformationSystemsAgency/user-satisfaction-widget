@@ -178,7 +178,8 @@ const ratingOptions = [
 
 useHead({
   title: 'ծառայությունների մասին կարիծիք',
-  htmlAttrs: { lang: 'en' },
+  meta: [{ name: 'description', content: 'ծառայությունների մասին կարիծիք' }],
+  htmlAttrs: { lang: 'hy' },
 })
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
