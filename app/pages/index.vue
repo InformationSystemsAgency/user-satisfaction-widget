@@ -135,6 +135,13 @@
 </template>
 
 <script setup lang="ts">
+
+// import VeryBad from '~/assets/svg/veryBad.svg';
+// import Bad from '~/assets/svg/bad.svg';
+// import Neutral from '~/assets/svg/neutral.svg';
+// import Good from '~/assets/svg/good.svg';
+// import VeryGood from '~/assets/svg/veryGood.svg';
+
 const ratingOptions = [
   { label: '😡', value: 1 },
   { label: '😐', value: 2 },
