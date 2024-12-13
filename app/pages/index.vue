@@ -177,10 +177,10 @@ const ratingOptions = [
 ];
 
 useHead({
-  title: 'ծառայությունների մասին կարիծիք',
-  meta: [{ name: 'description', content: 'ծառայությունների մասին կարիծիք' }],
+  title: ' գնահատեք ծառայությունը',
+  meta: [{ name: 'description', content: 'օգտատիրոջ գնահատականը ծառայության մասին' }],
   htmlAttrs: { lang: 'hy' },
-})
+});
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
 
