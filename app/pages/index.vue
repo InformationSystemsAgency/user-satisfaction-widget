@@ -1,5 +1,6 @@
 <template>
   <div class="flex items-center w-full h-screen px-6 py-4 border border-text-500 rounded-3xl overflow-hidden">
+    <!-- Rating view -->
     <div
       v-if="!showCommentSection"
       class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center md:justify-start flex-col md:flex-row"
@@ -57,6 +58,7 @@
             }"
             :delay="100 + 40 * index"
             variant="rating"
+            :aria-label="item.ariaLabel"
             :active="item.value === feedbackForm.rating"
             @click="handleFeedbackSubmission(item.value)"
           >
@@ -69,6 +71,7 @@
       </div>
     </div>
 
+    <!-- Comment view -->
     <div
       v-if="showCommentSection && !feedbackForm.commentSubmitted"
       v-motion="{
@@ -113,6 +116,7 @@
       </div>
     </div>
 
+    <!-- Success view -->
     <div
       v-if="showCommentSection && feedbackForm.commentSubmitted"
       v-motion="{
@@ -138,11 +142,36 @@
 
 <script setup lang="ts">
 const ratingOptions = [
-  { label: '😡', value: 1, icon: 'angry.svg' },
-  { label: '😐', value: 2, icon: 'bad.svg' },
-  { label: '😊', value: 3, icon: 'neutral.svg' },
-  { label: '😍', value: 4, icon: 'good.svg' },
-  { label: '🤩', value: 5, icon: 'excellent.svg' },
+  {
+    label: '😡',
+    ariaLabel: 'Շատ վատ',
+    value: 1,
+    icon: 'angry.svg',
+  },
+  {
+    label: '😐',
+    ariaLabel: 'Վատ',
+    value: 2,
+    icon: 'bad.svg',
+  },
+  {
+    label: '😊',
+    ariaLabel: 'Բավարար',
+    value: 3,
+    icon: 'neutral.svg',
+  },
+  {
+    label: '😍',
+    ariaLabel: 'Լավ',
+    value: 4,
+    icon: 'good.svg',
+  },
+  {
+    label: '🤩',
+    ariaLabel: 'Գերազանց',
+    value: 5,
+    icon: 'excellent.svg',
+  },
 ];
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
