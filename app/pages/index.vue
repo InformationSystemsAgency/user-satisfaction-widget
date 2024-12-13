@@ -177,7 +177,7 @@ const ratingOptions = [
 ];
 
 useHead({
-  title: ' Գնահատեք ծառայությունը',
+  title: 'Գնահատեք ծառայությունը',
   meta: [{ name: 'description', content: 'Օգտատիրոջ գնահատականը ծառայության մասին' }],
   htmlAttrs: { lang: 'hy' },
 });
