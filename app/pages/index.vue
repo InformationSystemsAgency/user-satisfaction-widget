@@ -65,6 +65,8 @@
             <img
               class="w-7 h-7"
               :src="icons[item.icon]"
+              alt=""
+              role="presentation"
             />
           </HenaketButton>
         </template>
@@ -173,6 +175,12 @@ const ratingOptions = [
     icon: 'excellent.svg',
   },
 ];
+
+useHead({
+  title: 'Գնահատեք ծառայությունը',
+  meta: [{ name: 'description', content: 'Օգտատիրոջ գնահատականը ծառայության մասին' }],
+  htmlAttrs: { lang: 'hy' },
+});
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
 
