@@ -2,8 +2,7 @@
   <div class="flex items-center w-full h-screen px-6 py-4 border border-text-500 rounded-3xl overflow-hidden">
     <div
       v-if="!showCommentSection"
-      class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center flex-col md:flex-row"
-      :class="[feedbackForm.rating ? 'md:justify-end' : 'md:justify-between']"
+      class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center md:justify-start flex-col md:flex-row"
     >
       <div
         v-if="!feedbackForm.rating"
