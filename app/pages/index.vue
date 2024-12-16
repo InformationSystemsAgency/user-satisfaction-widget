@@ -59,14 +59,17 @@
             :delay="100 + 40 * index"
             variant="rating"
             :aria-label="item.ariaLabel"
-            :active="item.value === feedbackForm.rating"
+            :active="item.value <= (feedbackForm.rating || 0)"
             @click="handleFeedbackSubmission(item.value)"
+            @mouseenter="feedbackForm.hoverRating = item.value"
+            @mouseleave="feedbackForm.hoverRating = undefined"
           >
             <img
               class="w-7 h-7"
               :src="icons[item.icon]"
               alt=""
               role="presentation"
+              :class="currentRating >= item.value ? 'opacity-100' : 'opacity-50'"
             />
           </HenaketButton>
         </template>
@@ -148,31 +151,31 @@ const ratingOptions = [
     label: '😡',
     ariaLabel: 'Շատ վատ',
     value: 1,
-    icon: 'angry.svg',
+    icon: 'active.svg',
   },
   {
     label: '😐',
     ariaLabel: 'Վատ',
     value: 2,
-    icon: 'bad.svg',
+    icon: 'active.svg',
   },
   {
     label: '😊',
     ariaLabel: 'Բավարար',
     value: 3,
-    icon: 'neutral.svg',
+    icon: 'active.svg',
   },
   {
     label: '😍',
     ariaLabel: 'Լավ',
     value: 4,
-    icon: 'good.svg',
+    icon: 'active.svg',
   },
   {
     label: '🤩',
     ariaLabel: 'Գերազանց',
     value: 5,
-    icon: 'excellent.svg',
+    icon: 'active.svg',
   },
 ];
 
@@ -183,7 +186,7 @@ useHead({
 });
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
-
+const currentRating = computed(() => feedbackForm.hoverRating || feedbackForm.rating || 0);
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
 const feedbackTextareaBigElement = ref<HTMLTextAreaElement | undefined>(undefined);
@@ -191,6 +194,7 @@ const feedbackTextareaBigElement = ref<HTMLTextAreaElement | undefined>(undefine
 const feedbackForm = reactive<{
   id?: string;
   rating?: number;
+  hoverRating?: number;
   comment: string;
   commentSubmitted: boolean;
 }>({
@@ -227,7 +231,7 @@ const submitFeedbackComment = async () => {
 }
 
 .app-button[active='true'] {
-  @apply pointer-events-none bg-blue-300 border-text-600;
+  @apply bg-blue-300 border-text-600;
 }
 
 .app-textarea-content {
