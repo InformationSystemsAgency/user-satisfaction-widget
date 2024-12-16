@@ -6,7 +6,7 @@
       class="w-full gap-6 md:gap-10 flex items-start md:items-center justify-center md:justify-start flex-col md:flex-row"
     >
       <div
-        v-if="!feedbackForm.rating"
+        v-if="!satisfactionScoreForm.rating"
         v-motion="{
           initial: {
             y: 40,
@@ -23,7 +23,7 @@
       </div>
 
       <button
-        v-if="feedbackForm.rating"
+        v-if="satisfactionScoreForm.rating"
         v-motion="{
           initial: {
             y: 40,
@@ -59,7 +59,7 @@
             :delay="100 + 40 * index"
             variant="rating"
             :aria-label="item.ariaLabel"
-            :active="item.value === feedbackForm.rating"
+            :active="item.value === satisfactionScoreForm.rating"
             @click="handleFeedbackSubmission(item.value)"
           >
             <img
@@ -75,7 +75,7 @@
 
     <!-- Comment view -->
     <div
-      v-if="showCommentSection && !feedbackForm.commentSubmitted"
+      v-if="showCommentSection && !satisfactionScoreForm.commentSubmitted"
       v-motion="{
         initial: {
           y: 40,
@@ -90,7 +90,7 @@
     >
       <div class="w-full flex">
         <HenaketInputField
-          v-model="feedbackForm.comment"
+          v-model="satisfactionScoreForm.comment"
           ref="feedbackTextareaSmallElement"
           class="w-full hidden md:block"
           placeholder="Մեկնաբանություն"
@@ -98,7 +98,7 @@
         />
 
         <HenaketTextarea
-          v-model="feedbackForm.comment"
+          v-model="satisfactionScoreForm.comment"
           ref="feedbackTextareaBigElement"
           class="w-full block md:hidden"
           placeholder="Մեկնաբանություն"
@@ -120,7 +120,7 @@
 
     <!-- Success view -->
     <div
-      v-if="showCommentSection && feedbackForm.commentSubmitted"
+      v-if="showCommentSection && satisfactionScoreForm.commentSubmitted"
       v-motion="{
         initial: {
           y: 40,
@@ -188,22 +188,14 @@ const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
 const feedbackTextareaBigElement = ref<HTMLTextAreaElement | undefined>(undefined);
 
-const feedbackForm = reactive<{
-  id?: string;
-  rating?: number;
-  comment: string;
-  commentSubmitted: boolean;
-}>({
-  comment: '',
-  commentSubmitted: false,
-});
+const { satisfactionScoreForm, submitSatisfactionScore } = useSatisfactionScore();
 
 const handleFeedbackSubmission = async (ratingValue?: number) => {
   if (ratingValue) {
-    feedbackForm.rating = ratingValue;
+    satisfactionScoreForm.rating = ratingValue;
   }
 
-  // await submitFeedback();
+  await submitSatisfactionScore();
 };
 
 const openCommentSection = () => {
@@ -217,7 +209,9 @@ const openCommentSection = () => {
 };
 
 const submitFeedbackComment = async () => {
-  feedbackForm.commentSubmitted = true;
+  satisfactionScoreForm.commentSubmitted = true;
+
+  await submitSatisfactionScore();
 };
 </script>
 

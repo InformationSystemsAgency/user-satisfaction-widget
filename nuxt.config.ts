@@ -9,6 +9,12 @@ export default defineNuxtConfig({
     '/': { swr: true },
   },
 
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_PUBLIC_API_URL,
+    },
+  },
+
   experimental: {
     scanPageMeta: true,
     payloadExtraction: true,
