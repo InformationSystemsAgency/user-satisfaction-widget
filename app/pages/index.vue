@@ -59,6 +59,7 @@
             :delay="100 + 40 * index"
             variant="rating"
             :aria-label="item.ariaLabel"
+            :hover="item.value <= (feedbackForm.hoverRating || 0)"
             :active="item.value <= (feedbackForm.rating || 0)"
             @click="handleFeedbackSubmission(item.value)"
             @mouseenter="feedbackForm.hoverRating = item.value"
@@ -229,9 +230,13 @@ const submitFeedbackComment = async () => {
 .app-button {
   @apply w-24 flex-1;
 }
+.app-button[hover='true'] {
+  /* @apply bg-blue-300 border-text-600; */
+  @apply border-text-500 bg-blue-100;
+}
 
 .app-button[active='true'] {
-  @apply bg-blue-300 border-text-600;
+  @apply border-text-500 bg-blue-100;
 }
 
 .app-textarea-content {
