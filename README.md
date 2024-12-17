@@ -2,7 +2,11 @@
 
 ## Overview
 
-The User Satisfaction Score Widget is a standardized component for measuring user satisfaction across digital services in Armenia. It implements a 5-point rating system that helps service providers gather objective feedback and improve their public services.
+The User Satisfaction Score Widget is a standardized component for measuring user satisfaction across public services in Armenia. It is designed to help service teams implement measure 2 from the "4 foundation measures" for user satisfaction - as shown in [Armenia's digital service design principles](https://standards.hightech.gov.am/որակի-գնահատման-ցուցանիշներ/).
+
+Separate packages will be released for measure 3, and 4.
+
+The system implements a 5-point rating system, (Based on CSAT / NPS) that helps service providers gather objective feedback and improve their public services. The system can be integrated with multiple channels (for example online digital services, app channels, or by feedback after entering physical locations.
 
 ### Rating Scale Definition
 
@@ -26,16 +30,16 @@ Satisfaction % = (Number of 4 and 5 ratings / Total responses) × 100
 
 ### Step 1: Choose Your Implementation Type
 
-There are two implementation types depending on your design system:
+There are two implementation types depending on your needs:
 
-- Henaket Integration
-- Standard Integration
+- **Henaket Integration**: Use this version if your service is being built with [Henaket design system](https://www.figma.com/community/file/1257654638425705295), the visual design is optimised for compatibility
+- **Standard Integration**: Use this version if you are integrating into an existing (legacy) service that is not using Henaket
 
 ### Step 2: Prepare Your Parameters
 
 Collect the following required information:
 
-1. Your service ID from the national service catalog
+1. Your service ID by contacting ISAA via service.admin@isaa.am
 2. Your channel type (optional, defaults to "online")
 3. Your institution ID (optional)
 
@@ -66,9 +70,7 @@ The information is provided by ISAA when integrating.
   src="https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID"
   title="Գնահատեք ծառայությունը"
   style="
-    width: 100%;
-    min-width: 350px;
-    max-width: 700px;
+    width: 320px;
     height: 126px;
     border: none;
     border-radius: 24px;
@@ -115,7 +117,7 @@ Follow these placement guidelines:
 
 ### Standard Integration
 
-- Width: Minimum 350px, Maximum 700px
+- Width: Fixed 320px
 - Height: Fixed 126px
 - The widget should be responsive within these constraints
 
@@ -147,9 +149,7 @@ Follow these placement guidelines:
   src="https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID"
   title="Գնահատեք ծառայությունը"
   style="
-    width: 100%;
-    min-width: 350px;
-    max-width: 700px;
+    width: 320px;
     height: 126px;
     border: none;
     border-radius: 24px;
@@ -186,7 +186,7 @@ For example:
 
 2. Sizing Issues
 
-   - For non-Henaket: Ensure container width is between 350px and 700px
+   - For non-Henaket: Ensure container width is 320px
    - For Henaket: Verify responsive CSS is properly implemented
    - Check that no parent elements are constraining the iframe
 
