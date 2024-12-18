@@ -34,7 +34,7 @@
             opacity: 1,
           },
         }"
-        class="text-primary text-sm md:text-base font-semibold leading-normal shrink-0 underline hoveredRatingIndex:decoration-[3px] focus:!text-white focus:bg-accessibility focus:shadow-accessibilityOutline focus:animate-accessibility-outline-pulse"
+        class="text-primary text-sm md:text-base font-semibold leading-normal shrink-0 underline hover:decoration-[3px] focus:!text-white focus:bg-accessibility focus:shadow-accessibilityOutline focus:animate-accessibility-outline-pulse"
         @click="openCommentSection"
       >
         Ցանկանու՞մ եք թողնել մեկնաբանություն
