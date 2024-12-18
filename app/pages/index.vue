@@ -71,8 +71,8 @@
                 class="w-[30px] h-[30px]"
                 :src="
                   item.value <= hoveredRatingIndex || item.value <= (satisfactionScoreForm.rating ?? 0)
-                    ? icons[item.activeIcon]
-                    : icons[item.disabledIcon]
+                    ? icons['filled.svg']
+                    : icons['disabled.svg']
                 "
                 alt=""
                 role="presentation"
@@ -155,39 +155,24 @@
 <script setup lang="ts">
 const ratingOptions = [
   {
-    label: '😡',
     ariaLabel: 'Շատ վատ',
     value: 1,
-    activeIcon: 'filled.svg',
-    disabledIcon: 'disabled.svg',
   },
   {
-    label: '😐',
     ariaLabel: 'Վատ',
     value: 2,
-    activeIcon: 'filled.svg',
-    disabledIcon: 'disabled.svg',
   },
   {
-    label: '😊',
     ariaLabel: 'Բավարար',
     value: 3,
-    activeIcon: 'filled.svg',
-    disabledIcon: 'disabled.svg',
   },
   {
-    label: '😍',
     ariaLabel: 'Լավ',
     value: 4,
-    activeIcon: 'filled.svg',
-    disabledIcon: 'disabled.svg',
   },
   {
-    label: '🤩',
     ariaLabel: 'Գերազանց',
     value: 5,
-    activeIcon: 'filled.svg',
-    disabledIcon: 'disabled.svg',
   },
 ];
 
@@ -198,6 +183,7 @@ useHead({
 });
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
+
 const hoveredRatingIndex = ref(0);
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
