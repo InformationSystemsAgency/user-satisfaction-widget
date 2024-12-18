@@ -126,9 +126,7 @@ Follow these placement guidelines:
 ### Henaket Integration
 
 ```html
-<!-- Note: The height will automatically adjust based on the iframe's width -->
-<!-- If this iframe is placed in a container that's 900px wide, it will be 80px tall -->
-<!-- If this iframe is placed in a container that's 700px wide, it will be 126px tall -->
+<!-- Note: The height will automatically adjust based on the iframe's width to achieve this you can use CSS media queries-->
 <iframe
   src="https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID"
   title="Գնահատեք ծառայությունը"
@@ -164,8 +162,8 @@ Follow these placement guidelines:
 
 The widget's height is determined by its own width:
 
-1. If the iframe's content area is wider than 768px → height becomes 80px
-2. If the iframe's content area is 768px or narrower → height becomes 126px
+1. If the iframe's width is more than 768px → height becomes 80px
+2. If the iframe's width is 768px or less → height becomes 126px
 
 For example:
 
