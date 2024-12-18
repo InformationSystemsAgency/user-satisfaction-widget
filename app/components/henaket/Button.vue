@@ -116,8 +116,8 @@ const removeButtonFocus = () => {
 
 .app-button.rating {
   @apply rounded-full border-text-200 bg-text-100 text-text-800
-    hover:border-text-500 hover:bg-blue-100
-    active:border-text-600 active:bg-blue-300;
+    hover:border-text-300 hover:bg-white
+    active:border-text-300 active:bg-blue-100;
 }
 
 .app-button.regular {
@@ -130,7 +130,7 @@ const removeButtonFocus = () => {
 }
 
 .app-button.regular.rating {
-  @apply text-sm p-1 md:p-[5px];
+  @apply text-sm px-3 py-1.5 md:px-[17px] md:py-[9px];
 }
 
 .app-button.large {

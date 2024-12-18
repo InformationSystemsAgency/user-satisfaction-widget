@@ -40,35 +40,45 @@
         Ցանկանու՞մ եք թողնել մեկնաբանություն
       </button>
 
-      <div class="flex gap-3 w-full md:w-auto min-w-0">
+      <div class="flex w-full md:w-auto min-w-0">
         <template v-for="(item, index) in ratingOptions">
-          <HenaketButton
-            v-motion="{
-              initial: {
-                y: 40,
-                opacity: 0,
-              },
-            }"
-            :visibleOnce="{
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 400,
-              },
-            }"
-            :delay="100 + 40 * index"
-            variant="rating"
-            :aria-label="item.ariaLabel"
-            :active="item.value === satisfactionScoreForm.rating"
-            @click="handleFeedbackSubmission(item.value)"
+          <div
+            class="w-16 px-1 md:px-1.5 first:pl-0 last:pr-0 box-content"
+            @mouseenter="hoveredRatingIndex = item.value"
+            @mouseleave="hoveredRatingIndex = 0"
           >
-            <img
-              class="w-7 h-7"
-              :src="icons[item.icon]"
-              alt=""
-              role="presentation"
-            />
-          </HenaketButton>
+            <HenaketButton
+              v-motion="{
+                initial: {
+                  y: 40,
+                  opacity: 0,
+                },
+              }"
+              :visibleOnce="{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 400,
+                },
+              }"
+              :delay="100 + 40 * index"
+              variant="rating"
+              :aria-label="item.ariaLabel"
+              @click="handleFeedbackSubmission(item.value)"
+              @focus="hoveredRatingIndex = item.value"
+            >
+              <img
+                class="w-[30px] h-[30px]"
+                :src="
+                  item.value <= hoveredRatingIndex || item.value <= (satisfactionScoreForm.rating ?? 0)
+                    ? icons['filled.svg']
+                    : icons['disabled.svg']
+                "
+                alt=""
+                role="presentation"
+              />
+            </HenaketButton>
+          </div>
         </template>
       </div>
     </div>
@@ -145,34 +155,24 @@
 <script setup lang="ts">
 const ratingOptions = [
   {
-    label: '😡',
     ariaLabel: 'Շատ վատ',
     value: 1,
-    icon: 'angry.svg',
   },
   {
-    label: '😐',
     ariaLabel: 'Վատ',
     value: 2,
-    icon: 'bad.svg',
   },
   {
-    label: '😊',
     ariaLabel: 'Բավարար',
     value: 3,
-    icon: 'neutral.svg',
   },
   {
-    label: '😍',
     ariaLabel: 'Լավ',
     value: 4,
-    icon: 'good.svg',
   },
   {
-    label: '🤩',
     ariaLabel: 'Գերազանց',
     value: 5,
-    icon: 'excellent.svg',
   },
 ];
 
@@ -184,6 +184,7 @@ useHead({
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
 
+const hoveredRatingIndex = ref(0);
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
 const feedbackTextareaBigElement = ref<HTMLTextAreaElement | undefined>(undefined);
@@ -216,14 +217,6 @@ const submitFeedbackComment = async () => {
 </script>
 
 <style>
-.app-button {
-  @apply w-24 flex-1;
-}
-
-.app-button[active='true'] {
-  @apply pointer-events-none bg-blue-300 border-text-600;
-}
-
 .app-textarea-content {
   @apply rounded-e-none;
 }
