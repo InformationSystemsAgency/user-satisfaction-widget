@@ -34,7 +34,7 @@
             opacity: 1,
           },
         }"
-        class="text-primary text-sm md:text-base font-semibold leading-normal shrink-0 underline hover:decoration-[3px] focus:!text-white focus:bg-accessibility focus:shadow-accessibilityOutline focus:animate-accessibility-outline-pulse"
+        class="text-primary text-sm md:text-base font-semibold leading-normal shrink-0 underline hoveredRatingIndex:decoration-[3px] focus:!text-white focus:bg-accessibility focus:shadow-accessibilityOutline focus:animate-accessibility-outline-pulse"
         @click="openCommentSection"
       >
         Ցանկանու՞մ եք թողնել մեկնաբանություն
@@ -44,8 +44,8 @@
         <template v-for="(item, index) in ratingOptions">
           <div
             class="w-16 px-1 md:px-1.5 first:pl-0 last:pr-0 box-content"
-            @mouseenter="hover = item.value"
-            @mouseleave="hover = 0"
+            @mouseenter="hoveredRatingIndex = item.value"
+            @mouseleave="hoveredRatingIndex = 0"
           >
             <HenaketButton
               v-motion="{
@@ -64,14 +64,13 @@
               :delay="100 + 40 * index"
               variant="rating"
               :aria-label="item.ariaLabel"
-              :active="item.value <= (hover || 0) || item.value <= (satisfactionScoreForm.rating || 0)"
               @click="handleFeedbackSubmission(item.value)"
-              @focus="hover = item.value"
+              @focus="hoveredRatingIndex = item.value"
             >
               <img
                 class="w-[30px] h-[30px]"
                 :src="
-                  item.value <= hover || item.value <= (satisfactionScoreForm.rating ?? 0)
+                  item.value <= hoveredRatingIndex || item.value <= (satisfactionScoreForm.rating ?? 0)
                     ? icons[item.activeIcon]
                     : icons[item.disabledIcon]
                 "
@@ -199,7 +198,7 @@ useHead({
 });
 
 const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
-const hover = ref(0);
+const hoveredRatingIndex = ref(0);
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);
 const feedbackTextareaBigElement = ref<HTMLTextAreaElement | undefined>(undefined);
@@ -232,10 +231,6 @@ const submitFeedbackComment = async () => {
 </script>
 
 <style>
-.app-button[active='true'] {
-  @apply bg-white border-text-200;
-}
-
 .app-textarea-content {
   @apply rounded-e-none;
 }
