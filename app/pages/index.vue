@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center w-full h-screen px-6 py-4 overflow-hidden">
+  <div class="bg-white flex items-center w-full h-screen px-6 py-4 overflow-hidden">
     <!-- Rating view -->
     <div
       v-if="!showCommentSection"
