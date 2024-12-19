@@ -67,15 +67,8 @@
               @click="handleFeedbackSubmission(item.value)"
               @focus="hoveredRatingIndex = item.value"
             >
-              <img
-                class="w-[30px] h-[30px]"
-                :src="
-                  item.value <= hoveredRatingIndex || item.value <= (satisfactionScoreForm.rating ?? 0)
-                    ? icons['filled.svg']
-                    : icons['disabled.svg']
-                "
-                alt=""
-                role="presentation"
+              <AppStar
+                :active="item.value <= hoveredRatingIndex || item.value <= (satisfactionScoreForm.rating ?? 0)"
               />
             </HenaketButton>
           </div>
