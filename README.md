@@ -185,8 +185,8 @@ For example:
 ### Standard Integration (Non-Henaket)
 
 <div style="display: flex; gap: 20px;">
-    <img src="./docs/non-henaket-e-gov.jpg" width="50%">
-    <img src="./docs/non-henaket-e-request.jpg" width="50%">
+    <img src="./docs/non-henaket-e-gov.jpg" width="49%">
+    <img src="./docs/non-henaket-e-request.jpg" width="49%">
 </div>
 
 ## Troubleshooting
