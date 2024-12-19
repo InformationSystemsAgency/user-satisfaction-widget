@@ -173,6 +173,22 @@ For example:
   - If the container width calculates to 960px → 80px height
   - If the container width calculates to 700px → 126px height
 
+## Examples
+
+### Henaket Integration
+
+<div style="width: 100%; display: flex; gap: 20px;">
+    <img src="./docs/henaket-child-birth.jpg" width="70%">
+    <img src="./docs/henaket-child-birth-mobile.jpg" width="20%">
+</div>
+
+### Standard Integration (Non-Henaket)
+
+<div style="display: flex; gap: 20px;">
+    <img src="./docs/non-henaket-e-gov.jpg" width="50%">
+    <img src="./docs/non-henaket-e-request.jpg" width="50%">
+</div>
+
 ## Troubleshooting
 
 ### Common Issues and Solutions
