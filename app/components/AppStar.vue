@@ -16,7 +16,7 @@
       viewBox="0 0 24 23"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="w-[26px] h-[26px] absolute top-0 transition-opacity"
+      class="w-[26px] h-[26px] absolute top-0 transition-opacity duration-150"
       :class="active ? 'opacity-100' : 'opacity-0'"
     >
       <path

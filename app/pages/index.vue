@@ -43,7 +43,7 @@
       <div class="flex w-full md:w-auto min-w-0">
         <template v-for="(item, index) in ratingOptions">
           <div
-            class="w-16 px-1 md:px-1.5 first:pl-0 last:pr-0 box-content"
+            class="w-16 pr-1 md:pr-3 last:pr-0 box-content"
             @mouseenter="hoveredRatingIndex = item.value"
             @mouseleave="hoveredRatingIndex = 0"
           >
