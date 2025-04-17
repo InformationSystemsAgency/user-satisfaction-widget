@@ -1,12 +1,44 @@
 # User Satisfaction Score Widget Integration Guide
 
+**Integration Guide** \
+April 2025 v2.0
+
+## Table of Contents
+
+1. [Overview](#overview)
+   - [Rating Scale Definition](#rating-scale-definition)
+   - [Satisfaction Calculation](#satisfaction-calculation)
+2. [Step-by-Step Integration Guide](#step-by-step-integration-guide)
+   - [Step 1: Choose Your Implementation Type](#step-1-choose-your-implementation-type)
+   - [Step 2: Prepare Your Parameters](#step-2-prepare-your-parameters)
+   - [Step 3: Implementation](#step-3-implementation)
+     - [Option A: Henaket Integration](#option-a-henaket-integration)
+     - [Option B: Standard Integration (Non-Henaket)](#option-b-standard-integration-non-henaket)
+   - [Step 4: Add URL Parameters](#step-4-add-url-parameters)
+   - [Step 5: Place the Widget](#step-5-place-the-widget)
+   - [Step 6: Collect Transaction ID for Customer Contact or Linking Multiple Service Sessions](#step-6-collect-transaction-id-for-customer-contact-or-linking-multiple-service-sessions)
+3. [Size Requirements](#size-requirements)
+   - [Henaket Integration](#henaket-integration)
+   - [Standard Integration](#standard-integration)
+4. [Implementation Examples](#implementation-examples)
+   - [Henaket Integration](#henaket-integration-1)
+   - [Standard Integration (Non-Henaket)](#standard-integration-non-henaket-1)
+5. [Responsive Behavior](#responsive-behavior)
+   - [Understanding Width-Based Height Adjustment (Henaket Only)](#understanding-width-based-height-adjustment-henaket-only)
+6. [Visual Examples](#visual-examples)
+   - [Henaket Integration](#henaket-integration-2)
+   - [Standard Integration (Non-Henaket)](#standard-integration-non-henaket-2)
+7. [Troubleshooting](#troubleshooting)
+   - [Common Issues and Solutions](#common-issues-and-solutions)
+8. [Support](#support)
+
 ## Overview
 
-The User Satisfaction Score Widget is a standardized component for measuring user satisfaction across public services in Armenia. It is designed to help service teams implement measure 2 from the "4 foundation measures" for user satisfaction - as shown in [Armenia's digital service design principles](https://standards.hightech.gov.am/որակի-գնահատման-ցուցանիշներ/).
+The User Satisfaction Score Widget is a standardized component for measuring user satisfaction across public services in Armenia. It is designed to help service teams implement Measure 2 from the "4 Foundation Measures" for user satisfaction — as detailed in [Armenia's digital service design principles](https://standards.hightech.gov.am/որակի-գնահատման-ցուցանիշներ/).
 
-Separate packages will be released for measure 3, and 4.
+Separate packages will be released for Measures 3 and 4.
 
-The system implements a 5-point rating system, (Based on CSAT / NPS) that helps service providers gather objective feedback and improve their public services. The system can be integrated with multiple channels (for example online digital services, app channels, or by feedback after entering physical locations.
+The widget uses a 5-point rating system (based on CSAT/NPS) to help service providers gather objective feedback and improve their public services. It can be integrated into multiple channels, including online digital services, app-based channels, or physical feedback locations.
 
 ### Rating Scale Definition
 
@@ -30,20 +62,20 @@ Satisfaction % = (Number of 4 and 5 ratings / Total responses) × 100
 
 ### Step 1: Choose Your Implementation Type
 
-There are two implementation types depending on your needs:
+Select an implementation type based on your needs:
 
-- **Henaket Integration**: Use this version if your service is being built with [Henaket design system](https://www.figma.com/community/file/1257654638425705295), the visual design is optimised for compatibility
-- **Standard Integration**: Use this version if you are integrating into an existing (legacy) service that is not using Henaket
+- **Henaket Integration**: Use this version if your service is built using the [Henaket design system](https://www.figma.com/community/file/1257654638425705295), optimized for visual compatibility.
+- **Standard Integration**: Use this version if integrating into existing (legacy) services not built with Henaket.
 
 ### Step 2: Prepare Your Parameters
 
 Collect the following required information:
 
-1. Your service ID by contacting ISAA via service.admin@isaa.am
-2. Your channel type (optional, defaults to "online")
-3. Your institution ID (optional)
+1. Your service ID (contact ISAA at service.admin@isaa.am)
+2. Channel type (optional, defaults to "online")
+3. Institution ID (optional)
 
-The information is provided by ISAA when integrating.
+ISAA provides this information during integration.
 
 ### Step 3: Implementation
 
@@ -81,28 +113,41 @@ The information is provided by ISAA when integrating.
 
 ### Step 4: Add URL Parameters
 
-Add the required parameters to your URL:
+Include necessary parameters:
 
-```
-https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID&channel=CHANNEL&institutionId=INSTITUTION_ID
+```curl
+https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID&channel=CHANNEL&institutionId=INSTITUTION_ID&transactionId=TRANSACTION_ID
 ```
 
 Required parameters:
 
-| Parameter     | Required | Description                                                   | Example                                |
-| ------------- | -------- | ------------------------------------------------------------- | -------------------------------------- |
-| serviceId     | Yes      | Unique identifier from national service catalog               | `d6d9b838-cf95-4312-91fd-3655c2f6ac12` |
-| channel       | No       | Service provision channel (defaults to "online")              | `online`, `yesem`, `etc.`              |
-| institutionId | No       | Institution's unique identifier from national service catalog | `d6d9b838-cf95-4312-91fd-3655c2f6ac12` |
+| Parameter     | Required | Description                                                   | Value                                                              |
+| ------------- | -------- | ------------------------------------------------------------- | ------------------------------------------------------------------ |
+| serviceId     | Yes      | Unique identifier from national service catalog               | `UUID` (e.g., `d6d9b838-cf95-4312-91fd-3655c2f6ac12`)              |
+| channel       | No       | Service provision channel (defaults to "online")              | `yesem`, `online`, `app`, `email`, `offline_book_visit`, `offline` |
+| transactionId | No       | Service transaction ID for linking multiple service sessions. | `string` \| `number`                                               |
+| institutionId | No       | Institution's unique identifier from national service catalog | `UUID` (e.g., `d6d9b838-cf95-4312-91fd-3655c2f6ac12`)              |
 
 ### Step 5: Place the Widget
 
-Follow these placement guidelines:
+Follow placement guidelines:
 
-1. Position the widget on the service confirmation page
-2. Ensure the widget is fully visible without scrolling
-3. Test visibility on both mobile and desktop views
-4. Verify that the widget doesn't interfere with other page elements
+1. Position on service confirmation page
+2. Ensure visibility without scrolling
+3. Test on mobile and desktopm ,
+4. Avoid interference with page elements
+
+### Step 6: Collect Transaction ID for Customer Contact or Linking Multiple Service Sessions
+
+There may be instances where a user interacts with an online system multiple times, possibly on different days, but still within the context of the same service provision. Examples include applying for permits that may be approved or denied, or maintaining an internal case ID history to enable follow-up contact based on user feedback.
+
+To maintain traceability across these interactions, you should use the `transactionId` parameter. Including this parameter allows the NPS widget to group multiple user sessions into a single transaction. The `transactionId` can be any unique identifier assigned to the user, such as a case number or internal case ID.
+
+Place the widget at each significant touchpoint within the service journey. For example:
+
+- A user submits an application for a building permit. At the conclusion of the application form, the NPS widget is displayed. The user provides a satisfaction rating of 5, and this rating, along with the transaction ID and other relevant parameters, is sent to the NPS system.
+
+- If the user’s application experiences a delay, they might receive an email notification eight days later, prompting them to view the final decision online. The NPS widget is displayed again at the end of this subsequent interaction to reassess user satisfaction at the conclusion of the service provision. By using the same `transactionId`, the NPS system can track and present the progression of satisfaction scores associated with this transaction.
 
 ## Size Requirements
 
@@ -173,7 +218,7 @@ For example:
   - If the container width calculates to 960px → 80px height
   - If the container width calculates to 700px → 126px height
 
-## Examples
+## Visual Examples
 
 ### Henaket Integration
 
