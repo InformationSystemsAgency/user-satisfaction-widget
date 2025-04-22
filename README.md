@@ -121,12 +121,24 @@ https://nps.services.catalog.isaa.cloud?serviceId=YOUR_SERVICE_ID&channel=CHANNE
 
 Required parameters:
 
-| Parameter     | Required | Description                                                   | Value                                                              |
+| Parameter     | Required | Description                                                   | Values                                                             |
 | ------------- | -------- | ------------------------------------------------------------- | ------------------------------------------------------------------ |
 | serviceId     | Yes      | Unique identifier from national service catalog               | `UUID` (e.g., `d6d9b838-cf95-4312-91fd-3655c2f6ac12`)              |
-| channel       | No       | Service provision channel (defaults to "online")              | `yesem`, `online`, `app`, `email`, `offline_book_visit`, `offline` |
+| channel\*     | No       | Service provision channel (defaults to "online")              | `yesem`, `online`, `app`, `email`, `offline_book_visit`, `offline` |
 | transactionId | No       | Service transaction ID for linking multiple service sessions. | `string` \| `number`                                               |
 | institutionId | No       | Institution's unique identifier from national service catalog | `UUID` (e.g., `d6d9b838-cf95-4312-91fd-3655c2f6ac12`)              |
+
+#### \*Service provision channels
+
+| Channel              | Description                                                                                                                                                       |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `yesem`              | This is for a web-based service that uses YesEm login.                                                                                                            |
+| `online`             | This is for a web-based legacy service that uses an alternative login (e.g., username and password).                                                              |
+| **Note**             | If your service offers both YesEm and an alternative login method, use YesEm as the default.                                                                      |
+| `app`                | This is for a service provided by a mobile app.                                                                                                                   |
+| `email`              | This is for a service applied for by email (for example, by attaching an application form). The link to the NPS survey can be included in the confirmation reply. |
+| `offline_book_visit` | This is for a service applied for in person where the user books an appointment (for example, renewing a passport).                                               |
+| `offline`            | This is for a service provided entirely in person with no appointment booking (for example, when a user walks in without an appointment).                         |
 
 ### Step 5: Place the Widget
 
@@ -223,15 +235,15 @@ For example:
 ### Henaket Integration
 
 <div style="width: 100%; display: flex; gap: 20px;">
-    <img src="./docs/henaket-child-birth.jpg" width="70%">
-    <img src="./docs/henaket-child-birth-mobile.jpg" width="20%">
+    <img src="./media/henaket-child-birth.jpg" width="70%">
+    <img src="./media/henaket-child-birth-mobile.jpg" width="20%">
 </div>
 
 ### Standard Integration (Non-Henaket)
 
 <div style="display: flex; gap: 20px;">
-    <img src="./docs/non-henaket-e-gov.jpg" width="49%">
-    <img src="./docs/non-henaket-e-request.jpg" width="49%">
+    <img src="./media/non-henaket-e-gov.jpg" width="49%">
+    <img src="./media/non-henaket-e-request.jpg" width="49%">
 </div>
 
 ## Troubleshooting
