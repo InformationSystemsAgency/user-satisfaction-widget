@@ -175,8 +175,6 @@ useHead({
   htmlAttrs: { lang: 'hy' },
 });
 
-const icons = importFolder(import.meta.glob('@/assets/icons/*', { eager: true }));
-
 const hoveredRatingIndex = ref(0);
 const showCommentSection = ref(false);
 const feedbackTextareaSmallElement = ref<HTMLTextAreaElement | undefined>(undefined);

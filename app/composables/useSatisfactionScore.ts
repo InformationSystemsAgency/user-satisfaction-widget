@@ -3,6 +3,7 @@ interface SatisfactionScoreRequest {
   serviceId: string;
   serviceProvisionChannel?: string;
   institutionId?: string;
+  transactionId?: string;
   rating: number;
   comment: string;
   commentSubmitted: boolean;
@@ -30,7 +31,7 @@ export const useSatisfactionScore = () => {
   const { currentRoute } = useRouter();
 
   const submitSatisfactionScore = async () => {
-    const { serviceId, channel, institutionId } = currentRoute.value.query;
+    const { serviceId, channel, institutionId, transactionId } = currentRoute.value.query;
 
     if (!serviceId) return;
 
@@ -43,6 +44,7 @@ export const useSatisfactionScore = () => {
       serviceId,
       serviceProvisionChannel: channel,
       institutionId,
+      transactionId,
       userAgent: navigator.userAgent,
     } as SatisfactionScoreRequest;
 
