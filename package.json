@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@9.12.0",
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "nuxt dev",
@@ -16,18 +16,19 @@
     "format": "prettier --write \"**/*.{md,y?(a)ml,json,vue,css,ts}\""
   },
   "dependencies": {
-    "@nuxt/fonts": "^0.10.3",
-    "nuxt": "^3.14.1592",
+    "@nuxt/fonts": "^0.11.1",
+    "nuxt": "^3.16.2",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "^9.1.1",
-    "@nuxtjs/tailwindcss": "^6.12.2",
-    "@vueuse/core": "^12.0.0",
-    "@vueuse/motion": "^2.2.6",
-    "@vueuse/nuxt": "^12.0.0",
-    "prettier": "^3.4.2",
-    "vite": "^6.0.4"
+    "@nuxtjs/i18n": "^9.5.3",
+    "@nuxtjs/tailwindcss": "^6.13.2",
+    "@vueuse/core": "^13.1.0",
+    "@vueuse/motion": "^3.0.3",
+    "@vueuse/nuxt": "^13.1.0",
+    "@vueuse/router": "^13.1.0",
+    "prettier": "^3.5.3",
+    "vite": "^6.3.2"
   }
 }
