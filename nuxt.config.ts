@@ -25,14 +25,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@vueuse/motion/nuxt', '@nuxtjs/i18n', '@nuxt/fonts'],
-
-  i18n: {
-    locales: ['hy', 'en', 'ru'],
-    defaultLocale: 'hy',
-    detectBrowserLanguage: false,
-    skipSettingLocaleOnNavigate: true,
-  },
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@vueuse/motion/nuxt', '@nuxt/fonts'],
 
   fonts: {
     defaults: {
