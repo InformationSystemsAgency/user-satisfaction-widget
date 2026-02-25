@@ -26,9 +26,18 @@ const satisfactionScoreForm = reactive<{
 });
 
 export const useSatisfactionScore = () => {
-  const { locale } = useI18n();
   const { $useNPSApi } = useNuxtApp();
   const { currentRoute } = useRouter();
+
+  const pageLanguage = computed(() => {
+    const lang = currentRoute.value.query.lang as string | undefined;
+
+    if (lang === 'en' || lang === 'hy') {
+      return lang;
+    }
+
+    return 'hy';
+  });
 
   const submitSatisfactionScore = async () => {
     const { serviceId, channel, institutionId, transactionId } = currentRoute.value.query;
@@ -40,7 +49,7 @@ export const useSatisfactionScore = () => {
       rating: satisfactionScoreForm.rating,
       comment: satisfactionScoreForm.comment,
       commentSubmitted: satisfactionScoreForm.commentSubmitted,
-      pageLanguage: locale.value,
+      pageLanguage: pageLanguage.value,
       serviceId,
       serviceProvisionChannel: channel,
       institutionId,
