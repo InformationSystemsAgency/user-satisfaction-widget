@@ -32,7 +32,7 @@ export const useSatisfactionScore = () => {
   const pageLanguage = computed(() => {
     const lang = currentRoute.value.query.lang as string | undefined;
 
-    if (lang === 'en' || lang === 'hy') {
+    if (lang === 'en' || lang === 'hy' || lang === 'ru') {
       return lang;
     }
 
