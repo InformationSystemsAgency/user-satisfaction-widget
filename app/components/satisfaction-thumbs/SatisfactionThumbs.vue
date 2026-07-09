@@ -125,11 +125,44 @@ const translations = {
       description: 'User rating about the page',
     },
   },
+  ru: {
+    title: 'Была ли эта страница полезной?',
+    reportButton: 'Сообщить о проблеме',
+    commentLabel: 'Комментарий',
+    cancelButton: 'Отмена',
+    submitButton: 'Отправить',
+    thanksForFeedback: 'Спасибо за ваш отзыв',
+    reportTitle: 'Сообщить о проблеме',
+    reportDescription: 'Пожалуйста, опишите проблему, и мы свяжемся с вами.',
+    reportEmailLabel: 'Эл. почта',
+    reportDescriptionLabel: 'Описание проблемы',
+    reportDescriptionRequired: 'Поле обязательно',
+    reportCancelButton: 'Отмена',
+    reportSubmitButton: 'Отправить',
+    reportThanksForReporting: 'Спасибо за сообщение',
+    rating: {
+      yes: {
+        label: 'Да 👍',
+        title: 'Спасибо за ваш отзыв',
+        description: 'Вы можете поделиться дополнительными комментариями.',
+      },
+      no: {
+        label: 'Нет 👎',
+        title: 'Сожалеем, что страница не была полезной',
+        description: 'Помогите нам улучшиться, описав проблему.',
+      },
+    },
+    meta: {
+      title: 'Оцените страницу',
+      description: 'Оценка пользователя страницы',
+    },
+  },
 } as const;
 
-const currentLang = computed<'hy' | 'en'>(() => {
+const currentLang = computed<'hy' | 'en' | 'ru'>(() => {
   const q = route.query.lang;
-  return q === 'en' ? 'en' : 'hy';
+  if (q === 'en' || q === 'ru') return q;
+  return 'hy';
 });
 
 const texts = computed(() => {
