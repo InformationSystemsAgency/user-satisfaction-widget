@@ -187,11 +187,31 @@ const translations = {
       description: 'User rating about the service',
     },
   },
+  ru: {
+    rating: {
+      question: 'Как бы вы оценили услугу?',
+      leaveComment: 'Хотите оставить комментарий?',
+      commentPlaceholder: 'Комментарий',
+      thanks: 'Спасибо за ваш отзыв',
+      labels: {
+        '1': 'Очень плохо',
+        '2': 'Плохо',
+        '3': 'Удовлетворительно',
+        '4': 'Хорошо',
+        '5': 'Отлично',
+      },
+    },
+    meta: {
+      title: 'Оцените услугу',
+      description: 'Оценка пользователя об услуге',
+    },
+  },
 } as const;
 
-const currentLang = computed<'hy' | 'en'>(() => {
+const currentLang = computed<'hy' | 'en' | 'ru'>(() => {
   const q = route.query.lang;
-  return q === 'en' ? 'en' : 'hy';
+  if (q === 'en' || q === 'ru') return q;
+  return 'hy';
 });
 
 const currentTexts = computed(() => translations[currentLang.value]);
