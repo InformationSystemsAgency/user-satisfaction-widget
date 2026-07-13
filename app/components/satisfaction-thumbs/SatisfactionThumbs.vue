@@ -1,6 +1,6 @@
 <template>
-  <section class="thumbs-bar" :class="[animation ? 'overflow-hidden' : '']">
-    <TransitionSlideExpand @animation:start="animation = true" @animation:end="animation = false">
+  <section ref="thumbsBarElement" class="thumbs-bar" :class="[animation ? 'overflow-hidden' : '']">
+    <TransitionSlideExpand @animation:start="animation = true" @animation:end="onAnimationEnd">
       <!-- Initial view -->
       <div v-if="!satisfactionScoreForm.rating" key="initial" class="thumbs-bar-row">
         <div class="thumbs-bar-main">
@@ -221,7 +221,15 @@ useHead(() => {
 });
 
 const animation = ref(false);
+const thumbsBarElement = ref<HTMLElement | undefined>(undefined);
 const feedbackTextareaElement = ref<{ focus: () => void } | undefined>(undefined);
+
+const { postHeight } = useIframeAutoHeight(thumbsBarElement);
+
+const onAnimationEnd = () => {
+  animation.value = false;
+  postHeight();
+};
 
 const handleFeedbackSubmission = async (ratingValue?: number) => {
   if (ratingValue) {
