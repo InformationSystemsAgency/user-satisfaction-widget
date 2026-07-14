@@ -1,55 +1,94 @@
 <template>
-  <section ref="thumbsBarElement" class="thumbs-bar" :class="[animation ? 'overflow-hidden' : '']">
+  <section
+    ref="thumbsBarElement"
+    class="thumbs-bar w-full bg-text-200 flex items-center border-b-2 border-secondary"
+    :class="[animation ? 'overflow-hidden' : '']"
+  >
     <TransitionSlideExpand @animation:start="animation = true" @animation:end="onAnimationEnd">
       <!-- Initial view -->
-      <div v-if="!satisfactionScoreForm.rating" key="initial" class="thumbs-bar-row">
-        <div class="thumbs-bar-main">
-          <p class="thumbs-bar-title">{{ texts.title }}</p>
+      <div
+        v-if="!satisfactionScoreForm.rating"
+        key="initial"
+        class="w-full flex flex-col sm:flex-row justify-between"
+      >
+        <div class="flex p-4 gap-8 justify-between flex-row items-center">
+          <div class="text-text-700 text-base font-semibold leading-normal">
+            {{ texts.title }}
+          </div>
 
-          <div class="thumbs-bar-actions">
-            <ThumbsButton v-for="item in ratingOptions" :key="item.value" @click="handleFeedbackSubmission(item.value)">
+          <div class="w-auto flex gap-4">
+            <ThumbsButton
+              v-for="item in ratingOptions"
+              :key="item.value"
+              @click="handleFeedbackSubmission(item.value)"
+            >
               {{ item.label }}
             </ThumbsButton>
           </div>
         </div>
 
-        <div class="thumbs-bar-report">
+        <div class="flex sm:hidden w-full h-0.5 bg-secondary"></div>
+
+        <div class="basis-full sm:basis-auto p-4">
           <ThumbsButton @click="handleFeedbackSubmission(3)">
             {{ texts.reportButton }}
           </ThumbsButton>
         </div>
-
       </div>
 
       <!-- Comment view -->
-      <div v-else-if="satisfactionScoreForm.rating && !satisfactionScoreForm.commentSubmitted" key="comment"
-        class="thumbs-bar-form">
-        <div class="thumbs-bar-form-header">
-          <p class="thumbs-bar-form-title">{{ selectedRatingOption?.title }}</p>
-          <p v-if="selectedRatingOption?.description" class="thumbs-bar-form-description">
-            {{ selectedRatingOption.description }}
-          </p>
-        </div>
+      <div
+        v-else-if="satisfactionScoreForm.rating && !satisfactionScoreForm.commentSubmitted"
+        key="comment"
+        class="w-full flex"
+      >
+        <div class="w-full p-4 flex gap-4 flex-col basis-full md:basis-1/2">
+          <div class="flex flex-col gap-1">
+            <div class="text-base font-semibold text-text-700 grow">
+              {{ selectedRatingOption?.title }}
+            </div>
 
-        <HenaketTextarea v-if="selectedRatingOption?.showComment" ref="feedbackTextareaElement"
-          v-model="satisfactionScoreForm.comment" class="thumbs-bar-textarea" :label="texts.commentLabel" :rows="3"
-          :maxRows="5" />
+            <p
+              v-if="selectedRatingOption?.description"
+              class="text-sm text-text-700 m-0"
+            >
+              {{ selectedRatingOption.description }}
+            </p>
+          </div>
 
-        <div class="thumbs-bar-form-actions">
-          <ThumbsButton @click="cancelFeedback()">
-            {{ texts.cancelButton }}
-          </ThumbsButton>
+          <div class="w-full flex flex-col gap-3 grow-0">
+            <HenaketTextarea
+              v-if="selectedRatingOption?.showComment"
+              ref="feedbackTextareaElement"
+              v-model="satisfactionScoreForm.comment"
+              class="w-full"
+              :label="texts.commentLabel"
+              :rows="3"
+              :maxRows="5"
+            />
 
-          <button class="thumbs-btn-primary" type="button" @click="submitFeedbackComment()">
-            {{ texts.submitButton }}
-          </button>
+            <div class="flex gap-2">
+              <ThumbsButton class="grow" @click="cancelFeedback()">
+                {{ texts.cancelButton }}
+              </ThumbsButton>
+
+              <button class="thumbs-btn-primary grow" type="button" @click="submitFeedbackComment()">
+                {{ texts.submitButton }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Feedback success -->
-      <div v-else-if="satisfactionScoreForm.rating && satisfactionScoreForm.commentSubmitted" key="feedback-success"
-        class="thumbs-bar-message">
-        {{ texts.thanksForFeedback }}
+      <div
+        v-else-if="satisfactionScoreForm.rating && satisfactionScoreForm.commentSubmitted"
+        key="feedback-success"
+        class="w-full px-4 py-3"
+      >
+        <div class="text-base font-semibold text-text-700 grow">
+          {{ texts.thanksForFeedback }}
+        </div>
       </div>
     </TransitionSlideExpand>
   </section>
@@ -249,168 +288,16 @@ const submitFeedbackComment = async () => {
 </script>
 
 <style scoped>
-.thumbs-bar {
-  width: 100%;
-  background: #f5f5f5;
-  border-bottom: 2px solid #78c5c1;
-}
-
-@media (max-width: 768px) {
-  .thumbs-bar-row {
-    flex-direction: column;
-    gap: 0;
-  }
-}
-
-.thumbs-bar-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 32px;
-  row-gap: 16px;
-  /* padding: 16px 0; */
-}
-
-.thumbs-bar-main {
-  display: flex;
-  align-items: center;
-  column-gap: 32px;
-  padding: 16px;
-}
-
-@media (max-width: 768px) {
-  .thumbs-bar-main {
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #78c5c1;
-  }
-
-  .thumbs-bar-row {
-    padding-bottom: 16px;
-  }
-}
-
-.thumbs-bar-report {
-  padding: 0 16px;
-}
-
-.thumbs-bar-title {
-  margin: 0;
-  color: #454545;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-.thumbs-bar-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.thumbs-bar-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px;
-  max-width: 50%;
-}
-
-@media (max-width: 768px) {
-  .thumbs-bar-form {
-    max-width: 100%;
-  }
-}
-
-.thumbs-bar-form-header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.thumbs-bar-form-title {
-  margin: 0;
-  color: #454545;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-
-.thumbs-bar-form-description {
-  margin: 0;
-  color: #454545;
-  font-size: 14px;
-  line-height: 24px;
-}
-
-.thumbs-bar-form-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.thumbs-bar-form-actions>* {
-  flex: 1;
-}
-
 .thumbs-btn-primary {
-  padding: 8px 16px;
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  border-radius: 4px;
-  border: 2px solid #355c8c;
-  background: #355c8c;
-  cursor: pointer;
-}
-
-.thumbs-btn-primary:hover {
-  background: #2a4a70;
-  border-color: #2a4a70;
+  @apply rounded border-2 no-underline flex items-center justify-center
+    bg-primary text-white border-blue-600
+    hover:bg-blue-900
+    active:bg-blue-1000 active:border-blue-1100
+    text-sm px-3 md:px-4 py-2 cursor-pointer;
 }
 
 .thumbs-btn-primary:focus-visible {
-  outline: 3px solid #bd13b8;
+  outline: 3px solid theme('colors.accessibility');
   outline-offset: 2px;
-}
-
-.thumbs-bar-message {
-  padding: 12px 16px;
-  color: #454545;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-.thumbs-bar-textarea :deep(.app-textarea-content) {
-  border-radius: 4px;
-}
-
-@media (max-width: 768px) {
-  .thumbs-btn {
-    width: 100%;
-  }
-
-  .thumbs-bar-report {
-    width: 100%;
-  }
-}
-
-@media (max-width: 380px) {
-
-  .thumbs-btn {
-    font-size: 13px;
-  }
-
-  .thumbs-bar-title {
-    font-size: 14px;
-  }
-
-  .thumbs-bar-main {
-    column-gap: 11px;
-  }
 }
 </style>
