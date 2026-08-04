@@ -7,7 +7,7 @@
     <TransitionSlideExpand @animation:start="animation = true" @animation:end="onAnimationEnd">
       <!-- Initial view -->
       <div
-        v-if="!satisfactionScoreForm.rating"
+        v-if="!isFeedbackOpen"
         key="initial"
         class="w-full flex flex-col sm:flex-row justify-between"
       >
@@ -30,7 +30,7 @@
         <div class="flex sm:hidden w-full h-0.5 bg-secondary"></div>
 
         <div class="basis-full sm:basis-auto p-4">
-          <ThumbsButton @click="handleFeedbackSubmission(3)">
+          <ThumbsButton @click="openReportForm()">
             {{ texts.reportButton }}
           </ThumbsButton>
         </div>
@@ -38,7 +38,7 @@
 
       <!-- Comment view -->
       <div
-        v-else-if="satisfactionScoreForm.rating && !satisfactionScoreForm.commentSubmitted"
+        v-else-if="isFeedbackOpen && !satisfactionScoreForm.commentSubmitted"
         key="comment"
         class="w-full flex"
       >
@@ -68,11 +68,17 @@
             />
 
             <div class="flex gap-2">
-              <ThumbsButton class="grow" @click="cancelFeedback()">
+              <ThumbsButton class="grow" @click="handleCancelFeedback()">
                 {{ texts.cancelButton }}
               </ThumbsButton>
 
-              <button class="thumbs-btn-primary grow" type="button" @click="submitFeedbackComment()">
+              <button
+                class="thumbs-btn-primary grow"
+                type="button"
+                :class="{ disabled: !canSubmitComment }"
+                :disabled="!canSubmitComment"
+                @click="submitFeedbackComment()"
+              >
                 {{ texts.submitButton }}
               </button>
             </div>
@@ -82,12 +88,12 @@
 
       <!-- Feedback success -->
       <div
-        v-else-if="satisfactionScoreForm.rating && satisfactionScoreForm.commentSubmitted"
+        v-else-if="isFeedbackOpen && satisfactionScoreForm.commentSubmitted"
         key="feedback-success"
         class="w-full px-4 py-3"
       >
         <div class="text-base font-semibold text-text-700 grow">
-          {{ texts.thanksForFeedback }}
+          {{ showReportForm ? texts.thanksForReporting : texts.thanksForFeedback }}
         </div>
       </div>
     </TransitionSlideExpand>
@@ -215,14 +221,14 @@ const texts = computed(() => {
 
 const ratingOptions = computed(() => [
   {
-    value: 5,
+    value: 5 as const,
     label: texts.value.rating.yes.label,
     title: texts.value.rating.yes.title,
     description: texts.value.rating.yes.description,
     showComment: true,
   },
   {
-    value: 1,
+    value: 1 as const,
     label: texts.value.rating.no.label,
     title: texts.value.rating.no.title,
     description: texts.value.rating.no.description,
@@ -236,10 +242,15 @@ const {
   cancelFeedback,
 } = useThumbsFeedback();
 
+const showReportForm = ref(false);
+
+const isFeedbackOpen = computed(() => Boolean(satisfactionScoreForm.rating) || showReportForm.value);
+
+const canSubmitComment = computed(() => satisfactionScoreForm.comment.trim().length > 0);
+
 const selectedRatingOption = computed(() => {
-  if (satisfactionScoreForm.rating === 3) {
+  if (showReportForm.value) {
     return {
-      value: 3,
       title: texts.value.reportTitle,
       description: texts.value.reportDescription,
       showComment: true,
@@ -270,17 +281,30 @@ const onAnimationEnd = () => {
   postHeight();
 };
 
-const handleFeedbackSubmission = async (ratingValue?: number) => {
-  if (ratingValue) {
-    satisfactionScoreForm.rating = ratingValue;
+const handleFeedbackSubmission = async (ratingValue: 1 | 5) => {
+  showReportForm.value = false;
+  satisfactionScoreForm.rating = ratingValue;
 
-    setTimeout(() => feedbackTextareaElement.value?.focus(), 300);
-  }
+  setTimeout(() => feedbackTextareaElement.value?.focus(), 300);
 
   await submitSatisfactionScore();
 };
 
+const openReportForm = () => {
+  showReportForm.value = true;
+  satisfactionScoreForm.rating = null;
+
+  setTimeout(() => feedbackTextareaElement.value?.focus(), 300);
+};
+
+const handleCancelFeedback = () => {
+  showReportForm.value = false;
+  cancelFeedback();
+};
+
 const submitFeedbackComment = async () => {
+  if (!canSubmitComment.value) return;
+
   satisfactionScoreForm.commentSubmitted = true;
 
   await submitSatisfactionScore();
@@ -299,5 +323,11 @@ const submitFeedbackComment = async () => {
 .thumbs-btn-primary:focus-visible {
   outline: 3px solid theme('colors.accessibility');
   outline-offset: 2px;
+}
+
+.thumbs-btn-primary.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 </style>

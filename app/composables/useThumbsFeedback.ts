@@ -5,7 +5,7 @@ interface SatisfactionThumbsRequest {
   serviceProvisionChannel?: string | null;
   institutionId?: string | null;
   transactionId?: string | null;
-  rating?: number;
+  rating?: number | null;
   comment?: string;
   commentSubmitted?: boolean;
   userAgent?: string;
@@ -148,7 +148,7 @@ const getPageName = async (queryPageName?: string | null) => {
 
 const satisfactionScoreForm = reactive<{
   id?: string;
-  rating?: number;
+  rating?: 1 | 5 | null;
   comment: string;
   commentSubmitted: boolean;
 }>({
@@ -187,7 +187,10 @@ export const useThumbsFeedback = () => {
   });
 
   const submitSatisfactionScore = async () => {
-    if (!satisfactionScoreForm.rating) return;
+    const rating = satisfactionScoreForm.rating;
+
+    // Allowed values: 1 (No), 5 (Yes), or null (Report an issue)
+    if (rating != null && rating !== 1 && rating !== 5) return;
 
     const { serviceId, channel, institutionId, transactionId } = currentRoute.value.query;
 
@@ -199,7 +202,7 @@ export const useThumbsFeedback = () => {
       id: satisfactionScoreForm.id,
       serviceId: serviceId as string,
       pageName: resolvedPageName,
-      rating: satisfactionScoreForm.rating,
+      rating: rating ?? null,
       comment: satisfactionScoreForm.comment,
       commentSubmitted: satisfactionScoreForm.commentSubmitted,
       serviceProvisionChannel: channel as string | undefined,

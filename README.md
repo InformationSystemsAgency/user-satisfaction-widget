@@ -3,6 +3,11 @@
 **Integration Guide** \
 April 2025 v2.0
 
+> **Thumbs widget (page-level Yes/No feedback):**  
+> - Developer notes: [README-thumbs.md](./README-thumbs.md)  
+> - Ministry integration guide (HY): [GUIDE-thumbs-integration-hy.pdf](./GUIDE-thumbs-integration-hy.pdf) · [`.md`](./GUIDE-thumbs-integration-hy.md)  
+> - Ministry integration guide (EN): [GUIDE-thumbs-integration-en.pdf](./GUIDE-thumbs-integration-en.pdf) · [`.md`](./GUIDE-thumbs-integration-en.md)
+
 ## Table of Contents
 
 1. [Overview](#overview)
